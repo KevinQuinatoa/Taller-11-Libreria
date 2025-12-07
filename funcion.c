@@ -7,16 +7,15 @@ int menu(){
 
     printf("-------------- Menu ----------------\n");
     printf("1. Ingresar libros\n");
-    printf("2. Agregar stock de libros\n");
-    printf("3. Mostrar lista de libros\n");
-    printf("4. Mostrar tabla de estados de los libros\n");
-    printf("5. Busqueda de libros\n");
-    printf("6. Prestar libro\n");
-    printf("7. Entrega de libros\n");
-    printf("8. Eliminar libros\n");
-    printf("9. Salir del programa\n");
+    printf("2. Mostrar lista de libros\n");
+    printf("3. Mostrar tabla de estados de los libros\n");
+    printf("4. Busqueda de libros\n");
+    printf("5. Prestar libro\n");
+    printf("6. Entrega de libros\n");
+    printf("7. Eliminar libros\n");
+    printf("8. Salir del programa\n");
     printf("Ingrese una opcion: ");
-    opcion = opcionValida(1,9);
+    opcion = opcionValida(1,8);
     return opcion;
 }
 int opcionValida(int min, int max){
@@ -41,18 +40,19 @@ void eliminarSalto(char *cadena, int n) {
     cadena[len]='\0';
 }
 
-void agregarStock(){
-
-}
 
 void crearLibro(Libro*libro, int *cont){
-    if (*cont>=10)
+    int cantidad;
+    printf("Ingrese la cantidad de libros a registrar (maximo 10): \n");
+    cantidad=opcionValida(1,10);
+    if (*cont+cantidad>=10)
     {
 
         printf("Se ingreso la cantidad maxima de libros\n");
         return;
 
-    } else {
+    } 
+    for (int i = 0; i < cantidad; i++){
 
         int existeN, existeId;
     printf("Ingrese el ID del libro: ");
@@ -104,9 +104,6 @@ void crearLibro(Libro*libro, int *cont){
         eliminarSalto(libro[*cont].prestamo.cedula, 20);
     }
     
-
-    printf("Ingrese el stock del libro: ");
-    libro[*cont].stockI=opcionValida(1,1000); 
     (*cont)++;
     printf("Libro Registrado.........\n");
     }
@@ -116,17 +113,16 @@ void crearLibro(Libro*libro, int *cont){
 void tablaLibros(Libro*libro, int *cont){
     printf("------------------------------ Tabla de libros ------------------------\n");
 
-    printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\tStock\n");
+    printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
     for (int i = 0; i < *cont; i++)
     {
-        printf("%d\t%d\t%s\t%s\t\t%d\t%d\t%d\t%s\t%d\n", i+1, libro[i].Id, 
+        printf("%d\t%d\t%s\t%s\t\t%d\t%d\t%d\t%s\n", i+1, libro[i].Id, 
                                                             libro[i].nombreL, 
                                                             libro[i].autor, 
                                                             libro[i].dia, 
                                                             libro[i].mes, 
                                                             libro[i].anio, 
-                                                            libro[i].estado, 
-                                                            libro[i].stockI);
+                                                            libro[i].estado);
     }
 }
 
@@ -170,8 +166,7 @@ void encontrarLibro(Libro*libro, int *cont){
                                                     libro[encontrado].dia, 
                                                     libro[encontrado].mes, 
                                                     libro[encontrado].anio, 
-                                                    libro[encontrado].estado, 
-                                                    libro[encontrado].stockI);
+                                                    libro[encontrado].estado);
     }
     
 }
@@ -304,7 +299,6 @@ void eliminarLibro(Libro*libro, int *cont){
         libro[i].mes=libro[i+1].mes;
         libro[i].anio=libro[i+1].anio;
         strcpy(libro[i].estado,libro[i+1].estado);
-        libro[i].stockI=libro[i+1].stockI;
     }
     (*cont)--;
     printf("Producto Eliminado........\n");

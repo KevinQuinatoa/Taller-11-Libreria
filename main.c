@@ -17,27 +17,24 @@ int main(int argc, char const *argv[])
         crearLibro(libro, &cont);
         break;
     case 2:
-        // nose si toca poner stock
-        break;
-    case 3:
         tablaLibros(libro, &cont);
         break;
-    case 4:
+    case 3:
         tablaEstado(libro, cont);
         break;
-    case 5:
+    case 4:
         encontrarLibro(libro, &cont);
         break;
-    case 6:
+    case 5:
         prestarLibro(libro, &cont);
         break;
-    case 7:
+    case 6:
         devolverLibros(libro, cont);
         break;
-    case 8:
+    case 7:
         eliminarLibro(libro, &cont);
         break;
-    case 9:
+    case 8:
         printf("Saliendo del programa.....\n");
         break;
 

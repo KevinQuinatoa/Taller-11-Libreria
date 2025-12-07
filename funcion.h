@@ -14,8 +14,6 @@ typedef struct
     char autor[50];
     int dia, mes, anio;
     char estado[20];
-    int stockI;
-
     Cliente prestamo;
 }Libro;
 
