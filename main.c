@@ -43,6 +43,6 @@ int main(int argc, char const *argv[])
     printf("Opcion no valida.\n");
         break;
     }
-   } while (opc1!=9);       
+   } while (opc1!=8);       
     return 0;
 }
