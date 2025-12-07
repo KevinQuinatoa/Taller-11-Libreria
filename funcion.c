@@ -45,9 +45,9 @@ void crearLibro(Libro*libro, int *cont){
     int cantidad;
     printf("Ingrese la cantidad de libros a registrar (maximo 10): \n");
     cantidad=opcionValida(1,10);
-    if (*cont+cantidad>=10)
+    *cont += cantidad;
+    if (*cont>10)
     {
-
         printf("Se ingreso la cantidad maxima de libros\n");
         return;
 
@@ -104,7 +104,6 @@ void crearLibro(Libro*libro, int *cont){
         eliminarSalto(libro[*cont].prestamo.cedula, 20);
     }
     
-    (*cont)++;
     printf("Libro Registrado.........\n");
     }
     
