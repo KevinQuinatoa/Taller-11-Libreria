@@ -158,9 +158,9 @@ void encontrarLibro(Libro*libro, int *cont){
         return;
     } else{
         printf("El libro fue encontrado\n");
-        printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\tStock\n");
+        printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
         
-        printf("%d\t%s\t%s\t\t%d\t%d\t%d\t%s\t%d\n", libro[encontrado].Id, 
+        printf("%d\t%s\t%s\t\t%d\t%d\t%d\t%s\n", libro[encontrado].Id, 
                                                     libro[encontrado].nombreL, 
                                                     libro[encontrado].autor, 
                                                     libro[encontrado].dia, 
