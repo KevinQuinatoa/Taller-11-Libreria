@@ -92,12 +92,18 @@ void crearLibro(Libro*libro, int *cont){
     int opcionE = opcionValida(1, 2);
     if (opcionE == 1) {
         strcpy(libro[*cont].estado, "Disponible");
+        // para que eno arroje basura al poner la tabla de estados
+        strcpy(libro[*cont].prestamo.nombreC, "-");
+        strcpy(libro[*cont].prestamo.cedula, "-");
     } else {
         strcpy(libro[*cont].estado, "Prestado");
+        printf("Ingrese nombre de la persona que pide el libro: ");
+        eliminarSalto(libro[*cont].prestamo.nombreC, 50);
+
+        printf("Ingrese la cedula: ");
+        eliminarSalto(libro[*cont].prestamo.cedula, 20);
     }
-    // para que eno arroje basura al poner la tabla de estados
-    strcpy(libro[*cont].prestamo.nombreC, "-");
-    strcpy(libro[*cont].prestamo.cedula, "-");
+    
 
     printf("Ingrese el stock del libro: ");
     libro[*cont].stockI=opcionValida(1,1000); 
