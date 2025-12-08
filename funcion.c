@@ -45,8 +45,8 @@ void crearLibro(Libro*libro, int *cont){
     int cantidad;
     printf("Ingrese la cantidad de libros a registrar (maximo 10): \n");
     cantidad=opcionValida(1,10);
-    *cont += cantidad;
-    if (*cont>10)
+    
+    if (cantidad>10)
     {
         printf("Se ingreso la cantidad maxima de libros\n");
         return;
@@ -55,7 +55,7 @@ void crearLibro(Libro*libro, int *cont){
     for (int i = 0; i < cantidad; i++){
 
         int existeN, existeId;
-    printf("Ingrese el ID del libro: ");
+    printf("Ingrese el ID del libro %d: ", i+1);
     libro[*cont].Id=opcionValida(1,9999999);
     
     existeId=buscarId(libro, *cont, libro[*cont].Id);
@@ -66,7 +66,7 @@ void crearLibro(Libro*libro, int *cont){
         return;
     }
 
-    printf("Ingrese el nombre del libro: ");
+    printf("Ingrese el nombre del libro %d: ", i+1);
     eliminarSalto(libro[*cont].nombreL,50);
     existeN=buscarLibro(libro, *cont, libro[*cont].nombreL);
     // comprobar si el nombre del libro ya esta registrado
@@ -76,7 +76,7 @@ void crearLibro(Libro*libro, int *cont){
         return;
     }
 
-    printf("Ingrese el nombre del autor del libro: ");
+    printf("Ingrese el nombre del autor del libro %d: ", i+1);
     eliminarSalto(libro[*cont].autor,50);
     printf("Ingrese el dia de publicacion: ");
     libro[*cont].dia=opcionValida(1,32);
@@ -84,7 +84,7 @@ void crearLibro(Libro*libro, int *cont){
     libro[*cont].mes=opcionValida(1,12);
     printf("Ingrese el anio de publicacion: ");
     libro[*cont].anio=opcionValida(1,3000);
-    printf("Estado del libro:\n");
+    printf("Estado del libro %d:\n",i+1);
     printf("1. Disponible\n");
     printf("2. Prestado\n");
     printf("Ingrese una opcion: ");
@@ -103,7 +103,7 @@ void crearLibro(Libro*libro, int *cont){
         printf("Ingrese la cedula: ");
         eliminarSalto(libro[*cont].prestamo.cedula, 20);
     }
-    
+    (*cont)++;
     printf("Libro Registrado.........\n");
     }
     
@@ -153,11 +153,11 @@ void encontrarLibro(Libro*libro, int *cont){
     encontrado=buscarLibro(libro, *cont, libro[*cont].nombreL);
     if (encontrado==-1)
     {
-        printf("El libro no esta registrado/n");
+        printf("El libro no esta registrado\n");
         return;
     } else{
         printf("El libro fue encontrado\n");
-        printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
+        printf("ID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
         
         printf("%d\t%s\t%s\t\t%d\t%d\t%d\t%s\n", libro[encontrado].Id, 
                                                     libro[encontrado].nombreL, 
@@ -191,12 +191,12 @@ void prestarLibro(Libro*libro, int *cont){
         printf("El libro ya esta prestado.\n");
         printf("Actualmente lo tiene:\n");
         printf("  Nombre: %s\n", libro[conta].prestamo.nombreC);
-        printf("  Cédula: %s\n", libro[conta].prestamo.cedula);
+        printf("  Cedula: %s\n", libro[conta].prestamo.cedula);
         return;
     }
 
     // Si está disponible → prestar
-    printf("El libro está disponible.\n");
+    printf("El libro esta disponible.\n");
 
     printf("Ingrese nombre de la persona que pide el libro: ");
     eliminarSalto(libro[conta].prestamo.nombreC, 50);
