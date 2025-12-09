@@ -333,6 +333,8 @@ void eliminarLibro(Libro*libro, int *cont){
         libro[i].mes=libro[i+1].mes;
         libro[i].anio=libro[i+1].anio;
         strcpy(libro[i].estado,libro[i+1].estado);
+        strcpy(libro[i].prestamo.nombreC,libro[i+1].prestamo.nombreC);
+        strcpy(libro[i].prestamo.cedula,libro[i+1].prestamo.cedula);
     }
     (*cont)--;
     printf("Producto Eliminado........\n");
