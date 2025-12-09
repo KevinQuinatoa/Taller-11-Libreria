@@ -56,7 +56,7 @@ void crearLibro(Libro*libro, int *cont){
 
         int existeN, existeId;
     printf("Ingrese el ID del libro %d: ", i+1);
-    libro[*cont].Id=opcionValida(1,9999999);
+    ingresarID(libro[*cont].Id, 20);
     
     existeId=buscarId(libro, *cont, libro[*cont].Id);
     // comprobar si el ID ya esta registrado
@@ -109,7 +109,7 @@ void tablaLibros(Libro*libro, int *cont){
     printf("#\tID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
     for (int i = 0; i < *cont; i++)
     {
-        printf("%d\t%d\t%s\t%s\t\t%d\t%d\t%d\t%s\n", i+1, libro[i].Id, 
+        printf("%d\t%s\t%s\t%s\t\t%d\t%d\t%d\t%s\n", i+1, libro[i].Id, 
                                                             libro[i].nombreL, 
                                                             libro[i].autor, 
                                                             libro[i].dia, 
@@ -128,10 +128,30 @@ int buscarLibro(Libro *libro, int cont, char buscar[]){
     return -1;
 }
 
-int buscarId(Libro*libro, int cont, int id){
+void ingresarID(char *destino, int max) {
+    while (1) {
+        eliminarSalto(destino, max);
+
+        // Validación: NO permitir cadena vacía ni solo espacios
+        if (strlen(destino) == 0) {
+            printf("El ID no puede estar vacío. Ingrese nuevamente: ");
+            continue;
+        }
+
+        // NO permitir negativo: si comienza con '-'
+        if (destino[0] == '-') {
+            printf("No se permiten ID negativos. Ingrese nuevamente: ");
+            continue;
+        }
+
+        return;
+    }
+}
+
+int buscarId(Libro* libro, int cont, char idBuscado[]){
     for (int i = 0; i < cont; i++)
     {
-        if (libro[i].Id == id){
+        if (strcmp(libro[i].Id, idBuscado) == 0){
             return i;
         }
         
@@ -153,7 +173,7 @@ void encontrarLibro(Libro*libro, int *cont){
         printf("El libro fue encontrado\n");
         printf("ID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
         
-        printf("%d\t%s\t%s\t\t%d\t%d\t%d\t%s\n", libro[encontrado].Id, 
+        printf("%s\t%s\t%s\t\t%d\t%d\t%d\t%s\n", libro[encontrado].Id, 
                                                     libro[encontrado].nombreL, 
                                                     libro[encontrado].autor, 
                                                     libro[encontrado].dia, 
@@ -285,7 +305,7 @@ void eliminarLibro(Libro*libro, int *cont){
     }
     for (int i = pos; i < *cont-1; i++)
     {
-        libro[i].Id=libro[i+1].Id;
+        strcpy(libro[i].Id,libro[i+1].Id);
         strcpy(libro[i].nombreL,libro[i+1].nombreL);
         strcpy(libro[i].autor,libro[i+1].autor);
         libro[i].dia=libro[i+1].dia;
