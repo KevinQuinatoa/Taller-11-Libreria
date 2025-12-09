@@ -68,13 +68,7 @@ void crearLibro(Libro*libro, int *cont){
 
     printf("Ingrese el nombre del libro %d: ", i+1);
     eliminarSalto(libro[*cont].nombreL,50);
-    existeN=buscarLibro(libro, *cont, libro[*cont].nombreL);
-    // comprobar si el nombre del libro ya esta registrado
-    if (existeN!=-1)
-    {
-        printf("El libro ya esta ingresado\n");
-        return;
-    }
+    
 
     printf("Ingrese el nombre del autor del libro %d: ", i+1);
     eliminarSalto(libro[*cont].autor,50);
@@ -101,7 +95,7 @@ void crearLibro(Libro*libro, int *cont){
         eliminarSalto(libro[*cont].prestamo.nombreC, 50);
 
         printf("Ingrese la cedula: ");
-        eliminarSalto(libro[*cont].prestamo.cedula, 20);
+        ingresarCedula(libro[*cont].prestamo.cedula);
     }
     (*cont)++;
     printf("Libro Registrado.........\n");
@@ -202,7 +196,7 @@ void prestarLibro(Libro*libro, int *cont){
     eliminarSalto(libro[conta].prestamo.nombreC, 50);
 
     printf("Ingrese la cedula: ");
-    eliminarSalto(libro[conta].prestamo.cedula, 20);
+    ingresarCedula(libro[*cont].prestamo.cedula);
 
     // Cambiar estado
     strcpy(libro[conta].estado, "Prestado");
