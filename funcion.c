@@ -231,7 +231,7 @@ void prestarLibro(Libro*libro, int *cont){
     eliminarSalto(libro[conta].prestamo.nombreC, 50);
 
     printf("Ingrese la cedula: ");
-    ingresarCedula(libro[*cont].prestamo.cedula);
+    ingresarCedula(libro[conta].prestamo.cedula);
 
     // Cambiar estado
     strcpy(libro[conta].estado, "Prestado");
@@ -288,7 +288,7 @@ void devolverLibros(Libro*libro, int cont){
     }
 
     if (encontrado == -1) {
-        printf("No hay ningún libro prestado a esa cedula.\n");
+        printf("No hay ningun libro prestado a esa cedula.\n");
         return;
     }
 
