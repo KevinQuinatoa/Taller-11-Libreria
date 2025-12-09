@@ -150,7 +150,7 @@ void ingresarID(char *destino, int max) {
 
 int buscarId(Libro* libro, int cont, char idBuscado[]){
     for (int i = 0; i < cont; i++)
-    {
+    {   
         if (strcmp(libro[i].Id, idBuscado) == 0){
             return i;
         }
@@ -161,38 +161,53 @@ int buscarId(Libro* libro, int cont, char idBuscado[]){
 
 void encontrarLibro(Libro*libro, int *cont){
 
-    int encontrado;
+    char nombreBuscar[50];
+    char idBuscar[20];
+    int encontrado = -1;
+
     printf("Ingrese el nombre del libro que desea buscar: ");
-    eliminarSalto(libro[*cont].nombreL,50);
-    encontrado=buscarLibro(libro, *cont, libro[*cont].nombreL);
-    if (encontrado==-1)
-    {
+    eliminarSalto(nombreBuscar, 50);
+
+    printf("Ingrese el ID del libro que desea buscar: ");
+    eliminarSalto(idBuscar, 20);
+
+    // Buscar libro que coincida en nombre Y ID
+    for (int i = 0; i < *cont; i++) {
+        if (strcmp(libro[i].nombreL, nombreBuscar) == 0 &&
+            strcmp(libro[i].Id, idBuscar) == 0) {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado == -1) {
         printf("El libro no esta registrado\n");
         return;
-    } else{
-        printf("El libro fue encontrado\n");
-        printf("ID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
-        
-        printf("%s\t%s\t%s\t\t%d\t%d\t%d\t%s\n", libro[encontrado].Id, 
-                                                    libro[encontrado].nombreL, 
-                                                    libro[encontrado].autor, 
-                                                    libro[encontrado].dia, 
-                                                    libro[encontrado].mes, 
-                                                    libro[encontrado].anio, 
-                                                    libro[encontrado].estado);
     }
-    
+
+    printf("El libro fue encontrado\n");
+    printf("ID\tNombre\t\tAutor\t\tDia\tMes\tAnio\tEstado\n");
+
+    printf("%s\t%s\t%s\t\t%d\t%d\t%d\t%s\n",
+            libro[encontrado].Id,
+            libro[encontrado].nombreL,
+            libro[encontrado].autor,
+            libro[encontrado].dia,
+            libro[encontrado].mes,
+            libro[encontrado].anio,
+            libro[encontrado].estado);
 }
+
 
 void prestarLibro(Libro*libro, int *cont){
     char busca[50];
     int conta;
     int opc2;
     tablaLibros(libro, cont);
-    printf("Ingrese el nombre del libro que desea pedir prestado: ");
-    eliminarSalto(busca,50);
-    conta=buscarLibro(libro, *cont, busca);
-     if (conta==-1)
+    printf("Ingrese el ID del libro que desea pedir prestado: ");
+    eliminarSalto(busca,20);
+    conta=buscarId(libro, *cont, busca);
+     if (conta==-2)
     {
         printf("El libro no esta registrado\n");
         return;
@@ -293,16 +308,22 @@ void devolverLibros(Libro*libro, int cont){
 void eliminarLibro(Libro*libro, int *cont){
 
     tablaLibros(libro, cont);
-    char buscar[50];
+    char buscar[20];
     int pos;
-    printf("Ingrese el nombre del libro que desea ingresar: ");
-    eliminarSalto(buscar,50);
-    pos=buscarLibro(libro, *cont, buscar);
-    if (pos ==-1)
+    printf("Ingrese el ID del libro que desea eliminar: ");
+    eliminarSalto(buscar,20);
+    pos=buscarId(libro, *cont, buscar);
+    if (pos ==-2)
     {
         printf("Libro no encontrado\n");
         return;
     }
+    if (strcmp(libro[pos].estado,"Prestado")==0)
+    {
+        printf("No se puede eliminar un libro que esta prestado\n");
+        return;
+    }
+    
     for (int i = pos; i < *cont-1; i++)
     {
         strcpy(libro[i].Id,libro[i+1].Id);
